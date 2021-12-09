@@ -36,6 +36,11 @@ public class Card {
         return credit;
     }
 
+    @Override
+    public String toString(){
+        return "Card: " + cardType + " " + number + " " + expires + " " + name + " " + credit;
+    }
+
     public static class CardBuilder{
         private  String cardType;
         private  String number;
