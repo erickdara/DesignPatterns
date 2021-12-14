@@ -11,10 +11,10 @@ public class CreditCard {
     public void activate(){
         System.out.println("La tarjeta ha sido activada.");
     }
-    public void desactivate(){
+    public void deactivate(){
         System.out.println("La tarjeta ha sido desactivada.");
     }
-    public void sendSMSToCustomerDesactivate(){
+    public void sendSMSToCustomerDeactivate(){
         System.out.println("Enviando SMS al cliente informando que su tarjeta ha sido desactivada.");
     }
 

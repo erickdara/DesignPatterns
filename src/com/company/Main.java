@@ -3,8 +3,14 @@ package com.company;
 import com.company.behavioral.chainofresponsability.Tarjeta;
 import com.company.behavioral.command.CreditCard;
 import com.company.behavioral.command.CreditCardActivateCommand;
-import com.company.behavioral.command.CreditCardDesactivateCommand;
+import com.company.behavioral.command.CreditCardDeactivateCommand;
 import com.company.behavioral.command.CreditCardInvoker;
+import com.company.behavioral.iterator.CardList;
+import com.company.behavioral.iterator.Iterator;
+import com.company.behavioral.iterator.List;
+import com.company.behavioral.mediator.ConcreteColleage1;
+import com.company.behavioral.mediator.ConcreteColleage2;
+import com.company.behavioral.mediator.ConcreteMediator;
 import com.company.creational.factorymethod.Payment;
 import com.company.creational.factorymethod.PaymentFactory;
 import com.company.creational.factorymethod.TypePayment;
@@ -31,7 +37,40 @@ public class Main {
 
         //COMPORTAMIENTO
         //testChainOfResponsability();
-        testCommand();
+        //testCommand();
+        //testIterator();
+        testMediator();
+    }
+
+    private static void testMediator(){
+        ConcreteMediator mediator = new ConcreteMediator();
+        ConcreteColleage1 user1 = new ConcreteColleage1(mediator);
+        ConcreteColleage2 user2 = new ConcreteColleage2(mediator);
+
+        mediator.setUser1(user1);
+        mediator.setUser2(user2);
+
+        user1.send("Hola soy user 1");
+        user2.send("Hola user1, soy user2");
+
+    }
+
+    private static void testIterator(){
+        com.company.behavioral.iterator.Card[] cards = new com.company.behavioral.iterator.Card[5];
+        cards[0] = new com.company.behavioral.iterator.Card("VISA");
+        cards[1] = new com.company.behavioral.iterator.Card("MASTERCARD");
+        cards[2] = new com.company.behavioral.iterator.Card("AMEX");
+        cards[3] = new com.company.behavioral.iterator.Card("GOOGLE CARD");
+        cards[4] = new com.company.behavioral.iterator.Card("APPLE CARD");
+
+        List lista = new CardList(cards);
+        Iterator iterator = lista.iterator();
+
+        while (iterator.hasNext()){
+            com.company.behavioral.iterator.Card tarjeta= (com.company.behavioral.iterator.Card)iterator.next();
+            System.out.println(tarjeta.getType());
+        }
+        
     }
 
     private static void testCommand() {
@@ -43,13 +82,13 @@ public class Main {
         invoker.setCommand(new CreditCardActivateCommand(creditCard));
         invoker.run();
         System.out.println("-----------------------------");
-        invoker.setCommand(new CreditCardDesactivateCommand(creditCard1));
+        invoker.setCommand(new CreditCardDeactivateCommand(creditCard1));
         invoker.run();
     }
 
     private static void testChainOfResponsability() {
         Tarjeta tarjeta = new Tarjeta();
-        tarjeta.creditCardRequest(2000);
+        tarjeta.creditCardRequest(100000);
     }
 
     private static void testSingleton() {
