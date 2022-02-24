@@ -11,6 +11,9 @@ import com.company.behavioral.iterator.List;
 import com.company.behavioral.mediator.ConcreteColleage1;
 import com.company.behavioral.mediator.ConcreteColleage2;
 import com.company.behavioral.mediator.ConcreteMediator;
+import com.company.behavioral.memento.Article;
+import com.company.behavioral.memento.ArticleMemento;
+import com.company.behavioral.memento.Carataker;
 import com.company.creational.factorymethod.Payment;
 import com.company.creational.factorymethod.PaymentFactory;
 import com.company.creational.factorymethod.TypePayment;
@@ -39,7 +42,37 @@ public class Main {
         //testChainOfResponsability();
         //testCommand();
         //testIterator();
-        testMediator();
+        //testMediator();
+        testMemento();
+
+    }
+
+    private static void testMemento(){
+        Carataker carataker = new Carataker();
+        Article article = new Article("Erick", "Memento es una pelicula");
+        article.setText(article.getText() + " de Nolan");
+        System.out.println(article.getText());
+
+        carataker.addMemento(article.createMemento());
+        article.setText(article.getText() + " protagonizado por Guy Pearce");
+        System.out.println(article.getText());
+
+        carataker.addMemento(article.createMemento());
+
+        article.setText(article.getText() + " y Leonardo di Caprio");
+        System.out.println(article.getText());
+
+        ArticleMemento memento1 = carataker.getMemento(0);
+        ArticleMemento memento2 = carataker.getMemento(1);
+
+        article.restoreMemento(memento1);
+        System.out.println();
+
+        article.restoreMemento(memento2);
+        System.out.println(article.getText());
+
+        article.setText(article.getText() + " del año 2021");
+        System.out.println(article.getText());
     }
 
     private static void testMediator(){
